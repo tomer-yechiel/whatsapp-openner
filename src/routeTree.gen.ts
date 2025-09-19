@@ -11,6 +11,7 @@
 import { createServerRootRoute } from '@tanstack/react-start/server'
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as RedirectRouteImport } from './routes/redirect'
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
 import { Route as IndexRouteImport } from './routes/index'
@@ -20,6 +21,11 @@ import { ServerRoute as ApiUsersUserIdServerRouteImport } from './routes/api/use
 
 const rootServerRouteImport = createServerRootRoute()
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RedirectRoute = RedirectRouteImport.update({
   id: '/redirect',
   path: '/redirect',
@@ -53,29 +59,33 @@ const ApiUsersUserIdServerRoute = ApiUsersUserIdServerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/redirect': typeof RedirectRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/redirect': typeof RedirectRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_pathlessLayout': typeof PathlessLayoutRoute
   '/redirect': typeof RedirectRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/redirect'
+  fullPaths: '/' | '/redirect' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/redirect'
-  id: '__root__' | '/' | '/_pathlessLayout' | '/redirect'
+  to: '/' | '/redirect' | '/settings'
+  id: '__root__' | '/' | '/_pathlessLayout' | '/redirect' | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PathlessLayoutRoute: typeof PathlessLayoutRoute
   RedirectRoute: typeof RedirectRoute
+  SettingsRoute: typeof SettingsRoute
 }
 export interface FileServerRoutesByFullPath {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
@@ -108,6 +118,13 @@ export interface RootServerRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/redirect': {
       id: '/redirect'
       path: '/redirect'
@@ -173,6 +190,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRoute,
   RedirectRoute: RedirectRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
