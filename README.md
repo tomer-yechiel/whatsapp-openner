@@ -4,9 +4,9 @@ This site is built with TanStack Router!
 
 - [TanStack Router Docs](https://tanstack.com/router)
 
-It's deployed automagically with Netlify!
+It's deployed automagically with Cloudflare!
 
-- [Netlify](https://netlify.com/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
 
 ## Development
 
@@ -18,6 +18,41 @@ pnpm dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
+
+## Deployment
+
+This project includes automated deployment to Cloudflare using GitHub Actions. The deployment workflow is triggered on:
+- Push to the `main` branch
+- Pull requests to the `main` branch
+
+### Required GitHub Secrets
+
+To enable automated deployment, you need to configure the following secrets in your GitHub repository settings:
+
+1. **CLOUDFLARE_API_TOKEN**: Your Cloudflare API token with the necessary permissions
+   - Go to [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+   - Create a token with "Cloudflare Pages:Edit" permissions
+   - Include your account and zone resources
+
+2. **CLOUDFLARE_ACCOUNT_ID**: Your Cloudflare account ID
+   - Found in the right sidebar of your Cloudflare dashboard
+
+### Setting up GitHub Secrets
+
+1. Go to your GitHub repository
+2. Navigate to Settings → Secrets and variables → Actions
+3. Click "New repository secret"
+4. Add both secrets with their respective values
+
+### Manual Deployment
+
+You can also deploy manually using:
+
+```sh
+npm run deploy
+```
+
+This will build the project and deploy it using Wrangler CLI.
 
 ## Progressive Web App (PWA)
 
