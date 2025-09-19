@@ -1,20 +1,32 @@
-# Welcome to TanStack.com!
+# WhatsApp Opener
 
-This site is built with TanStack Router!
+A simple, elegant web application that allows you to quickly open WhatsApp chats with any phone number. Built with React, TanStack Router, and TypeScript.
 
-- [TanStack Router Docs](https://tanstack.com/router)
+## Features
 
-It's deployed automagically with Cloudflare!
+- 📱 **Phone Number Input**: Smart phone number input with international format validation
+- 🌍 **Country Detection**: Automatic country detection based on user location
+- 📋 **Clipboard Integration**: Automatically detect phone numbers from your clipboard
+- ✅ **Number Validation**: Real-time phone number validation using libphonenumber
+- 🎯 **One-Click WhatsApp**: Direct integration with WhatsApp web/app
+- 🌙 **Dark Mode Support**: Beautiful light and dark themes
+- 📱 **PWA Ready**: Install as a Progressive Web App for quick access
+- 🚀 **Fast & Lightweight**: Built with modern web technologies
 
-- [Cloudflare Pages](https://pages.cloudflare.com/)
+## How It Works
+
+1. **Enter a Phone Number**: Type or paste any phone number in international format
+2. **Auto-Detection**: The app automatically detects the country and validates the number
+3. **Clipboard Magic**: If you have a phone number in your clipboard, the app will offer to use it
+4. **Open WhatsApp**: Click the button to instantly start a WhatsApp chat
 
 ## Development
 
-From your terminal:
+Install dependencies and start the development server:
 
 ```sh
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
@@ -56,74 +68,41 @@ This will build the project and deploy it using Wrangler CLI.
 
 ## Progressive Web App (PWA)
 
-This project is configured as a PWA using `vite-plugin-pwa`.
+This application is configured as a PWA using `vite-plugin-pwa`, making it installable on your device for quick access.
 
-What’s included:
-- Web App Manifest at `public/site.webmanifest` (already linked in the app shell)
-- Icons in `public/`
-- Service Worker auto-generated at build time with Workbox, caching static assets
-- Client-side registration with auto-updates
+**Features:**
+- Web App Manifest for installation
+- Service Worker for offline caching
+- Auto-updates when new versions are deployed
+- Works offline after first load
 
-How to verify locally:
-- Run `pnpm dev` and open the app in the browser
-- Open DevTools > Application > Manifest: you should see installability details
-- Go to Application > Service Workers: a SW should be registered (on production build)
+**To install:**
+1. Visit the app in your browser
+2. Look for the "Install" prompt or check your browser's install options
+3. The app will be added to your home screen/applications
 
-Build and deploy:
-- `pnpm build` will emit the service worker and related files; Wrangler serves `.output/public`
-- On first production load, the app will be installable and assets will be cached offline
+## Tech Stack
 
-Updating:
-- The SW uses `autoUpdate`; when you deploy a new version, clients will update in the background
+- **Framework**: React 19 with TanStack Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Phone Validation**: libphonenumber-js
+- **Build Tool**: Vite
+- **Deployment**: Cloudflare Pages
+- **PWA**: vite-plugin-pwa with Workbox
 
-## Editing and previewing the docs of TanStack projects locally
+## Browser Support
 
-The documentations for all TanStack projects except for `React Charts` are hosted on [https://tanstack.com](https://tanstack.com), powered by this TanStack Router app.
-In production, the markdown doc pages are fetched from the GitHub repos of the projects, but in development they are read from the local file system.
+Works in all modern browsers that support:
+- ES6+ JavaScript
+- Web App Manifest
+- Service Workers
+- Clipboard API (for clipboard detection feature)
 
-Follow these steps if you want to edit the doc pages of a project (in these steps we'll assume it's [`TanStack/form`](https://github.com/tanstack/form)) and preview them locally :
+## Privacy
 
-1. Create a new directory called `tanstack`.
-
-```sh
-mkdir tanstack
-```
-
-2. Enter the directory and clone this repo and the repo of the project there.
-
-```sh
-cd tanstack
-git clone git@github.com:TanStack/tanstack.com.git
-git clone git@github.com:TanStack/form.git
-```
-
-> [!NOTE]
-> Your `tanstack` directory should look like this:
->
-> ```
-> tanstack/
->    |
->    +-- form/
->    |
->    +-- tanstack.com/
-> ```
-
-> [!WARNING]
-> Make sure the name of the directory in your local file system matches the name of the project's repo. For example, `tanstack/form` must be cloned into `form` (this is the default) instead of `some-other-name`, because that way, the doc pages won't be found.
-
-3. Enter the `tanstack/tanstack.com` directory, install the dependencies and run the app in dev mode:
-
-```sh
-cd tanstack.com
-pnpm i
-# The app will run on https://localhost:3000 by default
-pnpm dev
-```
-
-4. Now you can visit http://localhost:3000/form/latest/docs/overview in the browser and see the changes you make in `tanstack/form/docs`.
-
-> [!NOTE]
-> The updated pages need to be manually reloaded in the browser.
-
-> [!WARNING]
-> You will need to update the `docs/config.json` file (in the project's repo) if you add a new doc page!
+This application:
+- Does not store or send your phone numbers to any server
+- Only uses your location for country detection (with permission)
+- Clipboard access is only used locally to detect phone numbers
+- All processing happens in your browser
