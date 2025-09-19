@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "whatsapp",
+  "name": "whatsapp-openner",
   "main": ".output/server/index.mjs",
   "compatibility_date": "2025-09-18",
   "compatibility_flags": ["nodejs_compat"],

@@ -125,8 +125,34 @@ function PhoneInput() {
       setError('Please enter at least 7 digits')
       return
     }
-    const url = `https://wa.me/${digits}`
-    window.open(url, '_blank', 'noopener,noreferrer')
+
+    // Prefer deep link to trigger an OS app chooser if both WhatsApp and WhatsApp Business are installed.
+    // On Android/iOS, both apps typically register the `whatsapp://` scheme, so omitting a package lets the system ask the user.
+    const appUrl = `whatsapp://send?phone=${digits}`
+    const webUrl = `https://wa.me/${digits}`
+
+    // Try to open the app directly. If it fails (no handler), fall back to the web URL.
+    // We use visibility check: if the page remains visible shortly after navigation attempt,
+    // it's likely the app didn't open, so we navigate to the web URL instead.
+    const tryOpenApp = () => {
+      // Using assign instead of open/popups avoids popup blockers.
+      window.location.href = appUrl
+
+      const start = Date.now()
+      const timeout = 1500
+      const check = () => {
+        const elapsed = Date.now() - start
+        // If still visible and time elapsed, fallback
+        if (document.visibilityState === 'visible' && elapsed >= timeout) {
+          // Fallback to web version (new tab keeps our app open)
+          window.open(webUrl, '_blank', 'noopener,noreferrer')
+        }
+      }
+      // Use a single timeout; advanced approaches might use pagehide/blur listeners.
+      window.setTimeout(check, timeout)
+    }
+
+    tryOpenApp()
   }
 
   const digitsOnly = value.replace(/\D/g, '')

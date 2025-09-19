@@ -23,8 +23,8 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       ...seo({
-        title: 'whatsapp',
-        description: `whatsapp`,
+        title: 'whatsapp openner',
+        description: `whatsapp openner`,
       }),
       {
         name: 'theme-color',
